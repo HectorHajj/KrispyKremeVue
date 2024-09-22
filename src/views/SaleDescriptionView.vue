@@ -14,19 +14,20 @@
     </div>
 </template>
 
-<script>
-import { ref, onMounted } from 'vue';
+<script lang="ts">
+import { ref, onMounted, Ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useAuthStore } from '../store/modules/auth/authStore';
+import { CreateSale } from '../models/CreateSale';
 
 export default {
     name: 'SaleDescriptionView',
     setup() {
         const authStore = useAuthStore();
-        const sale = ref(null);
+        const sale: Ref<CreateSale | null> = ref(null);
         const route = useRoute();
 
-        const fetchSaleDetails = async (saleId) => {
+        const fetchSaleDetails = async (saleId: string): Promise<void> => {
             try {
                 const response = await fetch(`http://localhost:5092/api/Sales/${saleId}`, {
                     method: 'GET',
@@ -38,7 +39,7 @@ export default {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                const data = await response.json();
+                const data: CreateSale = await response.json();
                 sale.value = data;
             } catch (error) {
                 console.error('Error fetching sale details:', error);
@@ -46,7 +47,7 @@ export default {
         };
 
         onMounted(() => {
-            const saleId = route.params.id;
+            const saleId = route.params.id as string;
             fetchSaleDetails(saleId);
         });
 

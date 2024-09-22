@@ -24,20 +24,22 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, PropType } from 'vue';
+import { DashboardSale } from '../../models/DashboardSale';
+
+export default defineComponent({
     name: 'SalesTable',
     props: {
         sales: {
-            type: Array,
+            type: Array as PropType<DashboardSale[]>,
             required: true
         }
     },
     methods: {
-        goToSaleDescription(saleId) {
-            console.log('goToSaleDescription', saleId);
+        goToSaleDescription(saleId: number): void {
             this.$router.push({ name: 'sale-description', params: { id: saleId } });
         }
     }
-};
+});
 </script>

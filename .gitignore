@@ -28,3 +28,13 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
+.vs/KrispyKremeVue/CopilotIndices/0.2.1634.3922/CodeChunks.db
+.vs/KrispyKremeVue/CopilotIndices/0.2.1634.3922/SemanticSymbols.db
+.vs/KrispyKremeVue/CopilotIndices/0.2.1634.3922/SemanticSymbols.db-shm
+.vs/KrispyKremeVue/CopilotIndices/0.2.1634.3922/SemanticSymbols.db-wal
+.vs/KrispyKremeVue/FileContentIndex/4d372e6a-307e-452f-a6e3-d538d213b741.vsidx
+.vs/KrispyKremeVue/v17/.wsuo
+.vs/KrispyKremeVue/v17/DocumentLayout.backup.json
+.vs/KrispyKremeVue/v17/DocumentLayout.json

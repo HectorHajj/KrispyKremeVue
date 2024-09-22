@@ -12,8 +12,8 @@
     </div>
 </template>
 
-<script>
-import { ref } from 'vue';
+<script lang="ts">
+import { ref, Ref } from 'vue';
 import LoginForm from '../components/login/LoginForm.vue';
 import RegisterForm from '../components/login/RegisterForm.vue';
 
@@ -24,7 +24,7 @@ export default {
         RegisterForm
     },
     setup() {
-        const showLogin = ref(true);
+        const showLogin: Ref<boolean> = ref(true);
         return {
             showLogin
         };

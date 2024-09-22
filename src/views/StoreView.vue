@@ -42,28 +42,31 @@
     </main>
 </template>
 
-<script>
-import { ref, onMounted } from 'vue';
+<script lang="ts">
+import { ref, onMounted, Ref } from 'vue';
 import { useAuthStore } from '../store/modules/auth/authStore';
+import { Doughnut } from '../models/Doughnut';
+import { Form } from '../models/Form';
+import { ValidationMessages } from '../models/ValidationMessages';
 
 export default {
     name: 'StoreView',
     setup() {
         const authStore = useAuthStore();
-        const doughnuts = ref([]);
-        const form = ref({
+        const doughnuts: Ref<Doughnut[]> = ref([]);
+        const form: Ref<Form> = ref({
             doughnutId: '',
             saleDate: new Date().toISOString(),
             quantity: 0
         });
-        const validationMessages = ref({});
+        const validationMessages: Ref<ValidationMessages> = ref({});
 
-        const fetchDoughnuts = async () => {
+        const fetchDoughnuts = async (): Promise<void> => {
             const response = await fetch('http://localhost:5092/api/Doughnut');
             doughnuts.value = await response.json();
         };
 
-        const validateForm = () => {
+        const validateForm = (): void => {
             validationMessages.value = {};
 
             if (!form.value.doughnutId) {
@@ -75,7 +78,7 @@ export default {
             }
         };
 
-        const submitSale = async () => {
+        const submitSale = async (): Promise<void> => {
             validateForm();
 
             if (Object.values(validationMessages.value).some(msg => msg)) {

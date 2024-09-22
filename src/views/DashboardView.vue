@@ -10,10 +10,11 @@
     </main>
 </template>
 
-<script>
-import { ref, onMounted } from 'vue';
+<script lang="ts">
+import { ref, onMounted, Ref } from 'vue';
 import SalesTable from '../components/dashboard/SalesTable.vue';
 import BaseTableCard from '../components/base/BaseTableCard.vue';
+import { DashboardSale } from '../models/DashboardSale';
 
 export default {
     name: 'DashboardView',
@@ -22,9 +23,9 @@ export default {
         BaseTableCard
     },
     setup() {
-        const sales = ref([]);
+        const sales: Ref<DashboardSale[]> = ref([]);
 
-        const fetchSales = async () => {
+        const fetchSales = async (): Promise<void> => {
             const response = await fetch('http://localhost:5092/api/Sales');
             sales.value = await response.json();
         };
@@ -34,18 +35,8 @@ export default {
         });
 
         return {
-            sales,
+            sales
         };
     }
 };
 </script>
-
-<style scoped>
-.krispyGreenText {
-    color: green;
-}
-
-.krispyRedText {
-    color: red;
-}
-</style>

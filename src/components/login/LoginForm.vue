@@ -17,50 +17,53 @@
     </div>
 </template>
 
-<script>
-import { useAuthStore } from '../../store/modules/auth/authStore'
-import { ref } from 'vue'
+<script lang="ts">
+import { useAuthStore } from '../../store/modules/auth/authStore';
+import { ref } from 'vue';
+import { LoginForm } from './types/LoginForm';
+
 export default {
     name: 'LoginForm',
     setup() {
-        const authStore = useAuthStore()
-        const form = ref({
+        const authStore = useAuthStore();
+        const form = ref<LoginForm>({
             email: '',
             password: ''
-        })
-        const submitLogin = async () => {
+        });
+
+        const submitLogin = async (): Promise<void> => {
             try {
                 const response = await fetch('http://localhost:5092/api/Auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ email: email.value, password: password.value })
-                })
-                const data = await response.json()
+                    body: JSON.stringify({ email: form.value.email, password: form.value.password })
+                });
+                const data = await response.json();
                 if (response.ok) {
                     if (data.token && data.token === "Invalid credentials") {
                         alert('Invalid credentials');
-                    }
-                    else {
-                        authStore.setToken(data.token)
-                        authStore.setCustomerId(data.customerId)
+                    } else {
+                        authStore.setToken(data.token);
+                        authStore.setCustomerId(data.customerId);
                         alert('Login successful');
                     }
                 } else {
-                    console.error('Login failed:', data.message)
+                    console.error('Login failed:', data.message);
                     alert('Login failed');
                 }
             } catch (error) {
-                console.error('An error occurred:', error)
+                console.error('An error occurred:', error);
             }
-        }
+        };
+
         return {
             form,
             submitLogin
-        }
+        };
     }
-}
+};
 </script>
 
 <style scoped>

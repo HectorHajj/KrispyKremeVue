@@ -25,13 +25,14 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ref } from 'vue';
+import { RegisterForm } from './types/RegisterForm';
 
 export default {
     name: 'RegisterForm',
     setup() {
-        const form = ref({
+        const form = ref<RegisterForm>({
             name: '',
             email: '',
             address: '',
